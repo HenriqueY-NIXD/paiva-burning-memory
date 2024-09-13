@@ -142,8 +142,9 @@ pub async fn get_all(ctx: &Context) -> Result<Vec<(String, String, Option<NaiveD
 
     let row: Vec<(String, String, Option<NaiveDate>, i32)> = sqlx::query_as("
         SELECT al.album, a.\"name\", al.listen_at, al.\"order\" \
+        FROM album_listen al \
             JOIN artist a ON (al.artist_id=a.id) \
-        FROM album_listen al ORDER BY al.\"order\";\
+        ORDER BY al.\"order\";\
     ")
         .fetch_all(&db)
         .await?;
