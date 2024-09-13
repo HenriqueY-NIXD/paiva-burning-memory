@@ -108,15 +108,15 @@ pub async fn get_by_id(ctx: &Context, id: i64) -> Result<(String, String, Option
         let data = ctx.data.read().await;
         data.get::<PgPoolContainer>().unwrap().clone()
     };
-
-    let row: (String, String, Option<NaiveDate>, Option<String>) = 
+    
+    let row: Result<(String, String, Option<NaiveDate>, Option<String>), Error> = 
         sqlx::query_as("
             SELECT al.album, a.\"name\", al.listen_at, al.photo FROM album_listen al \
                 JOIN artist a ON (al.artist_id=a.id) \
             WHERE al.\"order\" = $1;\
-        ").bind(id).fetch_one(&db).await.unwrap();
-
-    Ok(row)
+        ").bind(id).fetch_one(&db).await;
+    
+    row
 }
 
 pub async fn get_artist_by_id(ctx: &Context, id: i32) -> Result<(String, Option<String>), Error> {

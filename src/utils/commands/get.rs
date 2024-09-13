@@ -74,8 +74,16 @@ pub async fn get_by_id(ctx: &Context, msg: &Message, args: Vec<&str>) -> Result<
                 msg.channel_id.send_message(&ctx.http, builder).await?;
             }
             Err(_) => {
-                msg.reply(&ctx.http, format!("Não achei este album... (**{}º**)", id))
-                    .await?;
+                let embed = CreateEmbed::new()
+                    .title("NÃO ENCONTREI!".to_string())
+                    .thumbnail("https://aamsreremiodemmzpfdl.supabase.co/storage/v1/object/public/IMGS/WHERE.png")
+                    .description("Não foi possível localizar esse album...".to_string())
+                    .color(Color::from_rgb(50, 168, 82))
+                    .footer(CreateEmbedFooter::new("Tente com outro ID ou NOME".to_string()));
+                
+                let builder = CreateMessage::new().embed(embed);
+
+                msg.channel_id.send_message(&ctx.http, builder).await?;
             }
         };
     } else {
