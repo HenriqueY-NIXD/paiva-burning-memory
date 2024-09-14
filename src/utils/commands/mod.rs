@@ -8,6 +8,7 @@ mod get;
 mod post;
 mod delete;
 mod edit;
+mod today;
 
 pub async fn cmd_ping(ctx: &Context, msg: &Message) -> Result<(), Error> {
     if let Err(err) = ping::ping(ctx, msg).await {
@@ -76,6 +77,15 @@ pub async fn cmd_edit(ctx: &Context, msg: &Message, args: Vec<&str>) -> Result<(
     if let Err(err) = edit::edit(ctx, msg, args).await {
         msg.channel_id.say(&ctx.http, "Erro ao executar comand!").await?;
         println!("Erro ao Utilizar comando \"edit\": {}", err);
+    }
+
+    Ok(())
+}
+
+pub async fn cmd_today(ctx: &Context, msg: &Message) -> Result<(), Error> {
+    if let Err(err) = today::today(ctx, msg).await {
+        msg.channel_id.say(&ctx.http, "Erro ao executar comand!").await?;
+        println!("Erro ao Utilizar comando \"today\": {}", err);
     }
 
     Ok(())

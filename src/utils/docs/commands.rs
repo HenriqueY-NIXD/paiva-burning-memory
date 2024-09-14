@@ -9,6 +9,13 @@ pub const COMMANDS: HelpInfoType = [
         command_categories: &[CommandCategory::General],
     },
     HelpInfo {
+        command_name: "dia",
+        command_alias: &["dai", "day"],
+        command_instructions: "Comando para saber as estatísticas.",
+        command_usage: "paiva! dia",
+        command_categories: &[CommandCategory::PaivaBurningMemory],
+    },
+    HelpInfo {
         command_name: "help",
         command_alias: &["commands"],
         command_instructions: "Comando para listar os comandos do BOT.",

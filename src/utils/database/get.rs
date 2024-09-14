@@ -5,6 +5,18 @@ use sqlx::types::chrono::NaiveDate;
 
 use crate::utils::types::PgPoolContainer;
 
+pub async fn get_last_order(ctx: &Context) -> Result<i32, Error> {
+    let db = {
+        let data = ctx.data.read().await;
+        data.get::<PgPoolContainer>().unwrap().clone()
+    };
+    
+    let row: (i32,) = sqlx::query_as("SELECT MAX(\"order\")+1 FROM album_listen;")
+        .fetch_one(&db).await?;
+    
+    Ok(row.0)
+}
+
 pub async fn get_by_album(ctx: &Context, name: String) -> Result<(String, String, Option<NaiveDate>, i64), Error> {
     let db = {
         let data = ctx.data.read().await;

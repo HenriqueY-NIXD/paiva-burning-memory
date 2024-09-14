@@ -50,6 +50,9 @@ impl EventHandler for Handler {
             "edit" | "editar" | "put" | "patch" | "atualizar" | "update" => {
                 commands::cmd_edit(&ctx, &msg, args).await
             }
+            "dia" | "day" | "dai" => {
+                commands::cmd_today(&ctx, &msg).await
+            }
             _ => {
                 return;
             }

@@ -14,3 +14,4 @@ shuttle-runtime = "0.47.0"
 shuttle-serenity = "0.47.0"
 reqwest = "0.12.7"
 musicbrainz_rs = "0.5.0"
+chrono = { version = "0.4", features = ["serde"] }

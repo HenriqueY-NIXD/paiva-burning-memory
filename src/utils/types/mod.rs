@@ -39,7 +39,7 @@ pub struct HelpInfo {
     pub command_categories: &'static [CommandCategory],
 }
 
-pub type HelpInfoType = [HelpInfo; 8];
+pub type HelpInfoType = [HelpInfo; 9];
 
 #[derive(Debug)]
 pub struct AlbumListen {
