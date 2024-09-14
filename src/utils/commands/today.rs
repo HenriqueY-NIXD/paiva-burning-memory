@@ -31,11 +31,11 @@ pub async fn get_last_order(ctx: &Context, msg: &Message) -> Result<(), Serenity
             let diff = today.signed_duration_since(first_date_plus_db);
 
             if first_date_plus_db > today {
-                msg.channel_id.say(&ctx.http, format!("Dia **{}**, falta **{}** e esta devendo **{}** dias", data-1, (364 - data), diff)).await?;
+                msg.channel_id.say(&ctx.http, format!("Dia **{}**, falta **{}** e esta devendo **{}** dias", data-1, (364 - data), diff.num_days())).await?;
                 return Ok(());
             }
 
-            msg.channel_id.say(&ctx.http, format!("Dia **{}**, falta **{}** e esta devendo **{}** dias", data, (365 - data), diff)).await?;
+            msg.channel_id.say(&ctx.http, format!("Dia **{}**, falta **{}** e esta devendo **{}** dias", data, (365 - data), diff.num_days())).await?;
         }
         Err(_) => {
             msg.channel_id.say(&ctx.http, "Erro ao puxar o último dia!").await?;
