@@ -52,22 +52,22 @@ pub async fn post(ctx: &Context, msg: &Message, args: Vec<&str>) -> Result<(), S
             //         .build();
             // }
 
-            // match post::post(ctx, ParamsDb {
-            //     album: data.album,
-            //     artist_id: artist,
-            //     listen_at: data.listen_at,
-            //     order: data.order,
-            //     photo
-            // }).await {
-            //     Err(err) => {
-            //         msg.reply(ctx, "Erro ao inserir musica.").await?;
-            //         println!("Erro em POST: {}", err);
-            //     }
-            //     Ok(data) => {
-            //         msg.reply(ctx, format!("Musica inserida na posição: **`{}º`**", data))
-            //             .await?;
-            //     }
-            // }
+            match post::post(ctx, ParamsDb {
+                album: data.album,
+                artist_id: artist,
+                listen_at: data.listen_at,
+                order: data.order,
+                photo
+            }).await {
+                Err(err) => {
+                    msg.reply(ctx, "Erro ao inserir musica.").await?;
+                    println!("Erro em POST: {}", err);
+                }
+                Ok(data) => {
+                    msg.reply(ctx, format!("Musica inserida na posição: **`{}º`**", data))
+                        .await?;
+                }
+            }
         }
         Err(_) => {
             msg.reply(
