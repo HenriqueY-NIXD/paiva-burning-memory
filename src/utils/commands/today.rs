@@ -1,4 +1,5 @@
-use serenity::model::channel::Message;
+use serenity::all::{Color, CreateEmbedFooter, CreateMessage};
+use serenity::{all::CreateEmbed, model::channel::Message};
 use serenity::prelude::Context;
 use serenity::Error as SerenityError;
 use sqlx::types::chrono::{NaiveDate, Local};
@@ -21,7 +22,17 @@ pub async fn get_last_order(ctx: &Context, msg: &Message) -> Result<(), Serenity
             }
 
             if data > 365 {
-                msg.channel_id.say(&ctx.http, "O desafio foi completado! Parabéns!!!".to_string()).await?;    
+                msg.channel_id.say(&ctx.http, "**O desafio foi completado! Parabéns!!!**".to_string()).await?;
+                let embed = CreateEmbed::new()
+                    .title("FINALMENTE PORRA!".to_string())
+                    .thumbnail("https://aamsreremiodemmzpfdl.supabase.co/storage/v1/object/public/IMGS/god.png")
+                    .description("Depois de 366 dias...".to_string())
+                    .color(Color::from_rgb(50, 168, 82))
+                    .footer(CreateEmbedFooter::new("Crazy? I was crazy once, they made me listen to 366 albuns for a year.".to_string()));
+                
+                let builder = CreateMessage::new().embed(embed);
+
+                msg.channel_id.send_message(&ctx.http, builder).await?; 
                 return Ok(());
             }
             
