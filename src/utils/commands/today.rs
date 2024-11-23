@@ -16,12 +16,12 @@ pub async fn today(ctx: &Context, msg: &Message) -> Result<(), SerenityError> {
 pub async fn get_last_order(ctx: &Context, msg: &Message) -> Result<(), SerenityError> {
     match get::get_last_order(ctx).await {
         Ok(data) => {
-            if data == 365 {
+            if data == 366 {
                 msg.channel_id.say(&ctx.http, "Amanhã é o ULTIMO DIA!!! hoje é dia 366".to_string()).await?;    
                 return Ok(());
             }
 
-            if data > 365 {
+            if data > 366 {
                 msg.channel_id.say(&ctx.http, "**O desafio foi completado! Parabéns!!!**".to_string()).await?;
                 let embed = CreateEmbed::new()
                     .title("FINALMENTE PORRA!".to_string())
