@@ -37,16 +37,16 @@ pub async fn get_last_order(ctx: &Context, msg: &Message) -> Result<(), Serenity
             }
             
             let first_date = if let Some(x) = NaiveDate::from_ymd_opt(2023, 11, 23) {x} else { panic!() };
-            let first_date_plus_db = if let Some(x) = first_date.checked_add_days(Days::new((data - 1) as u64))  {x} else { panic!() };
+            let first_date_plus_db = if let Some(x) = first_date.checked_add_days(Days::new((data - 2) as u64))  {x} else { panic!() };
             let today = Local::now().date_naive();
             let diff = today.signed_duration_since(first_date_plus_db);
 
-            if first_date_plus_db > today {
-                msg.channel_id.say(&ctx.http, format!("Dia **{}**, falta **{}** e esta devendo **{}** dias", data-1, (366 - data), diff.num_days())).await?;
-                return Ok(());
-            }
+            // if first_date_plus_db > today {
+            //     msg.channel_id.say(&ctx.http, format!("Dia **{}**, falta **{}** e esta devendo **{}** dias", data-1, (367 - data), diff.num_days())).await?;
+            //     return Ok(());
+            // }
 
-            msg.channel_id.say(&ctx.http, format!("Dia **{}**, falta **{}** e esta devendo **{}** dias", data, (366 - data), diff.num_days())).await?;
+            msg.channel_id.say(&ctx.http, format!("Dia **{}**, falta **{}** e esta devendo **{}** dias", data-1, (367 - data), diff.num_days())).await?;
         }
         Err(_) => {
             msg.channel_id.say(&ctx.http, "Erro ao puxar o último dia!").await?;
